@@ -1,0 +1,66 @@
+table, th, td {
+    border: 1px solid #ccc;
+    border-collapse: collapse;
+    font-family: Calibri, sans-serif;
+    font-size: 14px;
+}
+
+th, td {
+    padding: 2px;
+}
+
+th, td {
+    text-align: center;
+}
+
+table {
+    border-spacing: 1px;
+    width: 95%;
+    float: right;
+    margin-bottom: 8px;
+}
+
+div {
+    background-color: #fff;
+}
+
+body {
+    background-color: #fff;
+}
+
+p {
+    width: 5%;
+    float: left;
+    font-family: Calibri, sans-serif;
+    font-size: 14px;
+}
+
+.five {
+    background-color: #00b50d;
+    border-radius: 30px;
+    color: white;
+}
+
+.four {
+    background-color: #68db36;
+    border-radius: 30px;
+    color: white;
+}
+
+.three {
+    background-color: #b1d020;
+    border-radius: 30px;
+    color: white;
+}
+
+.two {
+    background-color: #df953e;
+    border-radius: 30px;
+    color: white;
+}
+
+.one {
+    background-color: #df3e3e;
+    border-radius: 30px;
+    color: white;
+}
