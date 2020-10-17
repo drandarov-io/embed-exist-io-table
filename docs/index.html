@@ -1,210 +1,227 @@
 <!DOCTYPE html>
-<html lang="en" >
+<html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <title>Embeddable exist.io table</title>
-  <link rel="stylesheet" href="./style.css">
+    <meta charset="UTF-8">
+    <title>Embeddable exist.io table</title>
+    <link rel="stylesheet" href="./style.css">
 
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 
 <body>
 
 <script>
-  const params = new URLSearchParams(document.location.search);
-  const key = params.get("key");
-  
-  console.info(key);
+    const params = new URLSearchParams(document.location.search);
+    const key = params.get("key");
 
-  var scriptName = "embed.js"; //name of this script, used to get reference to own tag
-  var jQuery; //noconflict reference to jquery
-  var jqueryPath = "https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"; 
-  var jqueryVersion = "1.8.3";
-  var scriptTag; //reference to the html script tag
+    console.info(key);
 
-  /******** Get reference to self (scriptTag) *********/
-  var allScripts = document.getElementsByTagName('script');
-  var targetScripts = [];
-  for (var i in allScripts) {
-    var name = allScripts[i].src
-    if(name && name.indexOf(scriptName) > 0)
-      targetScripts.push(allScripts[i]);
-  }
+    var scriptName = "embed.js"; //name of this script, used to get reference to own tag
+    var jQuery; //noconflict reference to jquery
+    var jqueryPath = "https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js";
+    var jqueryVersion = "1.8.3";
+    var scriptTag; //reference to the html script tag
 
-  scriptTag = targetScripts[targetScripts.length - 1];
-
-  /******** helper function to load external scripts *********/
-  function loadScript(src, onLoad) {
-    var script_tag = document.createElement('script');
-    script_tag.setAttribute("type", "text/javascript");
-    script_tag.setAttribute("src", src);
-
-    if (script_tag.readyState) {
-      script_tag.onreadystatechange = function () {
-        if (this.readyState === 'complete' || this.readyState === 'loaded') {
-          onLoad();
-        }
-      };
-    } else {
-      script_tag.onload = onLoad;
+    /******** Get reference to self (scriptTag) *********/
+    var allScripts = document.getElementsByTagName('script');
+    var targetScripts = [];
+    for (var i in allScripts) {
+        var name = allScripts[i].src
+        if (name && name.indexOf(scriptName) > 0)
+            targetScripts.push(allScripts[i]);
     }
-    (document.getElementsByTagName("head")[0] || document.documentElement).appendChild(script_tag);
-  }
 
-  /******** helper function to load external css  *********/
-  function loadCss(href) {
-    var link_tag = document.createElement('link');
-    link_tag.setAttribute("type", "text/css");
-    link_tag.setAttribute("rel", "stylesheet");
-    link_tag.setAttribute("href", href);
-    (document.getElementsByTagName("head")[0] || document.documentElement).appendChild(link_tag);
-  }
+    scriptTag = targetScripts[targetScripts.length - 1];
 
-  /******** load jquery into 'jQuery' variable then call main ********/
-  if (window.jQuery === undefined || window.jQuery.fn.jquery !== jqueryVersion) {
-    loadScript(jqueryPath, initjQuery);
-  } else {
-    initjQuery();
-  }
+    /******** helper function to load external scripts *********/
+    function loadScript(src, onLoad) {
+        var script_tag = document.createElement('script');
+        script_tag.setAttribute("type", "text/javascript");
+        script_tag.setAttribute("src", src);
 
-  function initjQuery() {
-    jQuery = window.jQuery.noConflict(true);
-    main();
-  }
-  
-  function add_custom_tag_table(custom_tag, name) {    
-    const url = "https://exist.io/api/1/users/$self/attributes/" + custom_tag + "/"
-    const proxy = "https://cors-anywhere.herokuapp.com/"          
-    element = document.getElementById("widget_content")
-    
-    $.ajax({
-          dataType: "json",
-          beforeSend: function(request) {
-              request.setRequestHeader("Authorization", "Bearer " + key);
-          },
-          url: proxy + url,
-          //data: data,
-          success: function(result) {
-            table = document.createElement("table")
-            element.appendChild(table)
-            var row = document.createElement("tr")
-            table.appendChild(row)
-            var row_2 = document.createElement("tr")
-            table.appendChild(row_2)
-            var p = document.createElement("p")
-            p.innerHTML = name
-            element.appendChild(p)
-            
-            results = result["results"].reverse()
-            
-            for (var i = 0; i < results.length; i++){
-              
-              var obj = results[i];
-              
-              var value_block = document.createElement('td');
-              var date_block = document.createElement('td');
-              
-              var date_split = obj["date"].split("-")
-              var date = new Date(date_split[0], date_split[1], date_split[2])
-              date_block.innerHTML = date.getMonth() + "-" + date.getDate();
-              
-              if (obj["value"] === 1) {
+        if (script_tag.readyState) {
+            script_tag.onreadystatechange = function () {
+                if (this.readyState === 'complete' || this.readyState === 'loaded') {
+                    onLoad();
+                }
+            };
+        } else {
+            script_tag.onload = onLoad;
+        }
+        (document.getElementsByTagName("head")[0] || document.documentElement).appendChild(script_tag);
+    }
+
+    /******** helper function to load external css  *********/
+    function loadCss(href) {
+        var link_tag = document.createElement('link');
+        link_tag.setAttribute("type", "text/css");
+        link_tag.setAttribute("rel", "stylesheet");
+        link_tag.setAttribute("href", href);
+        (document.getElementsByTagName("head")[0] || document.documentElement).appendChild(link_tag);
+    }
+
+    /******** load jquery into 'jQuery' variable then call main ********/
+    if (window.jQuery === undefined || window.jQuery.fn.jquery !== jqueryVersion) {
+        loadScript(jqueryPath, initjQuery);
+    } else {
+        initjQuery();
+    }
+
+    function initjQuery() {
+        jQuery = window.jQuery.noConflict(true);
+        main();
+    }
+
+    function getAttributeData(attribute) {
+        const url = "https://exist.io/api/1/users/$self/attributes/" + attribute + "/"
+        const proxy = "https://cors-anywhere.herokuapp.com/"
+
+        result = $.ajax({
+            dataType: "json",
+            beforeSend: function (request) {
+                request.setRequestHeader("Authorization", "Bearer " + key);
+            },
+            async: false,
+            url: proxy + url,
+            //data: data
+        });
+
+        return result.responseJSON["results"].reverse()
+    }
+
+    function addDateTable(dates) {
+        let table = document.createElement("table")
+        table.id = "data_table"
+
+        let element = document.getElementById("widget_content")
+        element.appendChild(table)
+
+        let date_row = document.createElement("tr")
+        date_row.id = "date_row"
+        table.appendChild(date_row)
+
+        let name_block = document.createElement('th');
+        name_block.innerHTML = "Date"
+        date_row.appendChild(name_block)
+
+        for (let i = 0; i < dates.length; i++) {
+            let obj = dates[i];
+
+            let date_block = document.createElement('th');
+
+            let date_split = obj["date"].split("-")
+            let date = new Date(date_split[0], date_split[1], date_split[2])
+            date_block.innerHTML = date.getMonth() + "-" + date.getDate();
+
+            date_row.appendChild(date_block)
+        }
+    }
+
+    function addMoodRow(moods) {
+        let table = document.getElementById("data_table")
+
+        let mood_row = document.createElement("tr")
+        mood_row.id = "mood_row"
+        table.appendChild(mood_row)
+
+        let name_block = document.createElement('td');
+        name_block.innerHTML = "Mood"
+        mood_row.appendChild(name_block)
+
+        for (let i = 0; i < moods.length; i++) {
+            let obj = moods[i];
+
+            let value_block = document.createElement('td');
+            let mood_value_block = document.createElement('div')
+            mood_value_block.innerHTML = obj["value"]
+            value_block.appendChild(mood_value_block)
+
+            if (obj["value"] === 5) {
+                mood_value_block.setAttribute('class', 'five');
+            } else if (obj["value"] === 4) {
+                mood_value_block.setAttribute('class', 'four');
+            } else if (obj["value"] === 3) {
+                mood_value_block.setAttribute('class', 'three');
+            } else if (obj["value"] === 2) {
+                mood_value_block.setAttribute('class', 'two');
+            } else if (obj["value"] === 1) {
+                mood_value_block.setAttribute('class', 'one');
+            }
+
+            mood_row.appendChild(value_block)
+        }
+    }
+
+    function addCustomTagRow(attribute, name, max_dates) {
+        let results = getAttributeData(attribute)
+
+        let table = document.getElementById("data_table")
+
+        let custom_tag_row = document.createElement("tr")
+        custom_tag_row.id = name + "_row"
+        table.appendChild(custom_tag_row)
+
+        let name_block = document.createElement('td');
+        name_block.innerHTML = name
+        custom_tag_row.appendChild(name_block)
+
+        let diff = max_dates.length - results.length
+
+        for (let i = 0; i < diff; i++) {
+            results.splice(i, 0, {"value": 0, "date": max_dates[i]["date"]})
+        }
+
+        for (let i = 0; i < results.length; i++) {
+            let obj = results[i];
+
+            let value_block = document.createElement('td');
+            let date_block = document.createElement('td');
+
+            let date_split = obj["date"].split("-")
+            let date = new Date(date_split[0], date_split[1], date_split[2])
+            date_block.innerHTML = date.getMonth() + "-" + date.getDate();
+
+            if (obj["value"] === 1) {
                 value_block.innerHTML = "🔥";
-              
-              } else {
+            } else {
                 value_block.innerHTML = "⚬";
-              }
-              row.appendChild(value_block)
-              row_2.appendChild(date_block)
             }
-          }
-      });
-  }
-  
-  function add_mood_table() {    
-    const url = "https://exist.io/api/1/users/$self/attributes/mood/"
-    const proxy = "https://cors-anywhere.herokuapp.com/"          
-    element = document.getElementById("widget_content")
-    
-    $.ajax({
-          dataType: "json",
-          beforeSend: function(request) {
-              request.setRequestHeader("Authorization", "Bearer " + key);
-          },
-          url: proxy + url,
-          //data: data,
-          success: function(result) {
-            table = document.createElement("table")
-            element.appendChild(table)
-            var row = document.createElement("tr")
-            table.appendChild(row)
-            var row_2 = document.createElement("tr")
-            table.appendChild(row_2)
-            var p = document.createElement("p")
-            p.innerHTML = "Mood"
-            element.appendChild(p)
-            
-            results = result["results"].reverse()
-            
-            for (var i = 0; i < results.length; i++){
-              
-              var obj = results[i];
-              
-              var value_block = document.createElement('td');
-              var date_block = document.createElement('td');
-              
-              var date_split = obj["date"].split("-")
-              var date = new Date(date_split[0], date_split[1], date_split[2])
-              date_block.innerHTML = date.getMonth() + "-" + date.getDate();
-              
-              value_block.innerHTML = obj["value"]
-              if (obj["value"] === 5) {
-                value_block.setAttribute('class', 'five');
-              } else if (obj["value"] === 4) {
-                value_block.setAttribute('class', 'four');
-              } else if (obj["value"] === 3) {
-                value_block.setAttribute('class', 'three');
-              } else if (obj["value"] === 2) {
-                value_block.setAttribute('class', 'two');
-              } else if (obj["value"] === 1) {
-                value_block.setAttribute('class', 'one');
-              }
-              
-              row.appendChild(value_block)
-              row_2.appendChild(date_block)
-            }
-          }
-      });
-  }
 
-  /******** starting point for your widget ********/
-  function main() {
-    //your widget code goes here
-      
-    jQuery(document).ready(function ($) {
-      //or you could wait until the page is ready
+            custom_tag_row.appendChild(value_block)
+        }
+    }
 
-      // TODO Change to addDateTable, addMoodRow, addCustomTagRow,...
-      add_mood_table()
-      add_custom_tag_table("sport_strength_training", "Sport")
-      add_custom_tag_table("health_intermittent_fasting", "Fasting")
-      add_custom_tag_table("thinking_brain_exercise", "Brain Exc.")
+    function main() {
+        //your widget code goes here
 
-      //example load css
-      //loadCss("http://example.com/widget.css");
+        jQuery(document).ready(function ($) {
+            //or you could wait until the page is ready
 
-      //example script load
-      //loadScript("http://example.com/anotherscript.js", function() { /* loaded */ });
-    });
+            let moodResult = getAttributeData("mood")
 
-  }
+            console.log(moodResult)
+
+            addDateTable(moodResult)
+
+            addCustomTagRow("sport_strength_training", "Sport", moodResult)
+            addCustomTagRow("health_intermittent_fasting", "Fasting", moodResult)
+            addCustomTagRow("thinking_brain_exercise", "Brain Exc.", moodResult)
+
+            addMoodRow(moodResult)
+
+            //example load css
+            //loadCss("http://example.com/widget.css");
+
+            //example script load
+            //loadScript("http://example.com/anotherscript.js", function() { /* loaded */ });
+        });
+
+    }
 </script>
 
-<div id="widget_content">
+<div id="widget_content"></div>
 
-</div>
-<!-- partial -->
-  
 </body>
+
 </html>

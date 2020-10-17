@@ -1,5 +1,5 @@
 table, th, td {
-    border: 1px solid #ccc;
+    border: 1px solid #aaa;
     border-collapse: collapse;
     font-family: Calibri, sans-serif;
     font-size: 14px;
@@ -7,10 +7,11 @@ table, th, td {
 
 th, td {
     padding: 2px;
+    text-align: center;
 }
 
-th, td {
-    text-align: center;
+th {
+    background-color: #ddd;
 }
 
 table {
@@ -39,28 +40,38 @@ p {
     background-color: #00b50d;
     border-radius: 30px;
     color: white;
+    max-width: 25px;
+    margin: auto;
 }
 
 .four {
     background-color: #68db36;
     border-radius: 30px;
     color: white;
+    max-width: 25px;
+    margin: auto;
 }
 
 .three {
     background-color: #b1d020;
     border-radius: 30px;
     color: white;
+    max-width: 25px;
+    margin: auto;
 }
 
 .two {
     background-color: #df953e;
     border-radius: 30px;
     color: white;
+    max-width: 25px;
+    margin: auto;
 }
 
 .one {
     background-color: #df3e3e;
     border-radius: 30px;
     color: white;
+    max-width: 25px;
+    margin: auto;
 }
