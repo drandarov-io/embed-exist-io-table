@@ -123,6 +123,7 @@
 
         let mood_row = document.createElement("tr")
         mood_row.id = "mood_row"
+        mood_row.setAttribute("class", "mood")
         table.appendChild(mood_row)
 
         let name_block = document.createElement('td');
@@ -203,12 +204,11 @@
             console.log(moodResult)
 
             addDateTable(moodResult)
+            addMoodRow(moodResult)
 
             addCustomTagRow("sport_strength_training", "Sport", moodResult)
             addCustomTagRow("health_intermittent_fasting", "Fasting", moodResult)
             addCustomTagRow("thinking_brain_exercise", "Brain Exc.", moodResult)
-
-            addMoodRow(moodResult)
 
             //example load css
             //loadCss("http://example.com/widget.css");

@@ -75,3 +75,7 @@ p {
     max-width: 25px;
     margin: auto;
 }
+
+.mood {
+    height: 30px;
+}
