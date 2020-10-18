@@ -148,6 +148,9 @@
                 mood_value_block.setAttribute('class', 'two');
             } else if (obj["value"] === 1) {
                 mood_value_block.setAttribute('class', 'one');
+            } else {
+                mood_value_block.innerHTML = "⚬"
+                mood_value_block.setAttribute('class', 'zero');
             }
 
             mood_row.appendChild(value_block)

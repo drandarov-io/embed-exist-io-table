@@ -75,6 +75,14 @@ p {
     margin: auto;
 }
 
+.zero {
+    background-color: white;
+    border-radius: 30px;
+    color: black;
+    max-width: 25px;
+    margin: auto;
+}
+
 .mood {
     height: 30px;
 }
