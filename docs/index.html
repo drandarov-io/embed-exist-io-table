@@ -138,7 +138,15 @@
             mood_value_block.innerHTML = obj["value"]
             value_block.appendChild(mood_value_block)
 
-            if (obj["value"] === 5) {
+            if (obj["value"] === 9) {
+                mood_value_block.setAttribute('class', 'nine');
+            } else if (obj["value"] === 8) {
+                mood_value_block.setAttribute('class', 'eighth');
+            } else if (obj["value"] === 7) {
+                mood_value_block.setAttribute('class', 'seven');
+            } else if (obj["value"] === 6) {
+                mood_value_block.setAttribute('class', 'six');
+            } else if (obj["value"] === 5) {
                 mood_value_block.setAttribute('class', 'five');
             } else if (obj["value"] === 4) {
                 mood_value_block.setAttribute('class', 'four');
